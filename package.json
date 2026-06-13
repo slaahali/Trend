@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build:data": "node scripts/build-data.mjs",
+    "build:bundle": "node scripts/bundle.mjs",
     "serve": "node scripts/serve.mjs",
     "start": "npm run serve"
   },
