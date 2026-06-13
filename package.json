@@ -1,0 +1,14 @@
+{
+  "name": "tiktok-trends-ksa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "منصة تفاعلية تعرض هاشتاقات تيك توك الرائجة بأسلوب swarm، مدعومة ببيانات Trends MCP.",
+  "type": "module",
+  "scripts": {
+    "build:data": "node scripts/build-data.mjs",
+    "serve": "node scripts/serve.mjs",
+    "start": "npm run serve"
+  },
+  "keywords": ["tiktok", "trends", "swarm", "saudi", "visualization", "trendsmcp"],
+  "license": "MIT"
+}

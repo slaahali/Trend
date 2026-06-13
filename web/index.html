@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ترندات تيك توك · السعودية</title>
+  <meta name="description" content="منصة تفاعلية تعرض الهاشتاقات الرائجة على تيك توك بأسلوب swarm، مدعومة ببيانات Trends MCP." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-mesh" aria-hidden="true"></div>
+
+  <!-- ===== Top bar ===== -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <span class="note note-c"></span><span class="note note-m"></span>
+      </span>
+      <div class="brand-text">
+        <h1>ترندات تيك توك</h1>
+        <span class="brand-sub">السعودية · لوحة الـ swarm المباشرة</span>
+      </div>
+    </div>
+
+    <div class="topbar-meta">
+      <span class="live-chip"><span class="live-dot"></span> مباشر</span>
+      <span class="meta-chip" id="asOfChip">—</span>
+      <span class="meta-chip" id="countChip">—</span>
+    </div>
+
+    <div class="view-toggle" role="tablist" aria-label="طريقة العرض">
+      <button class="vt-btn is-active" data-view="swarm" role="tab" aria-selected="true">
+        <span class="vt-ico">✺</span> السرب
+      </button>
+      <button class="vt-btn" data-view="list" role="tab" aria-selected="false">
+        <span class="vt-ico">☰</span> القائمة
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== Controls ===== -->
+  <section class="controls">
+    <div class="search-wrap">
+      <span class="search-ico" aria-hidden="true">⌕</span>
+      <input id="search" type="search" placeholder="ابحث عن هاشتاق…" autocomplete="off" aria-label="بحث" />
+    </div>
+
+    <div class="control-actions">
+      <button class="pill pill-ksa" id="ksaToggle" aria-pressed="false">
+        <span class="ksa-star">★</span> أبرز ما يهم السعودية
+      </button>
+      <button class="pill pill-ghost" id="resetBtn">إعادة تعيين</button>
+    </div>
+
+    <div class="legend" id="legend" aria-label="تصفية حسب الفئة"></div>
+  </section>
+
+  <!-- ===== Stats strip ===== -->
+  <section class="stats" id="stats"></section>
+
+  <!-- ===== Main ===== -->
+  <main class="stage">
+    <!-- Swarm view -->
+    <section class="view view-swarm is-active" id="view-swarm" aria-label="عرض السرب">
+      <canvas id="swarm"></canvas>
+      <div class="swarm-hint" id="swarmHint">حرّك المؤشر بين الفقاعات · انقر للتفاصيل</div>
+      <div class="tooltip" id="tooltip" hidden></div>
+      <div class="empty-state" id="swarmEmpty" hidden>لا توجد نتائج مطابقة</div>
+    </section>
+
+    <!-- List view -->
+    <section class="view view-list" id="view-list" aria-label="عرض القائمة" hidden>
+      <div class="list-grid" id="listGrid"></div>
+      <div class="empty-state" id="listEmpty" hidden>لا توجد نتائج مطابقة</div>
+    </section>
+  </main>
+
+  <!-- ===== Detail drawer ===== -->
+  <aside class="drawer" id="drawer" hidden aria-label="تفاصيل الهاشتاق">
+    <button class="drawer-close" id="drawerClose" aria-label="إغلاق">×</button>
+    <div class="drawer-body" id="drawerBody"></div>
+  </aside>
+  <div class="drawer-scrim" id="drawerScrim" hidden></div>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <p id="sourceNote">—</p>
+    <p class="footer-sub">بيانات حية من Trends MCP · التمييز السعودي تحريري للإبراز فقط.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
