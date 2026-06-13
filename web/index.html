@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>ترندات تيك توك · السعودية</title>
-  <meta name="description" content="منصة تفاعلية تعرض الهاشتاقات الرائجة على تيك توك بأسلوب swarm، مدعومة ببيانات Trends MCP." />
+  <meta name="description" content="منصة تفاعلية: هاشتاقات تيك توك الرائجة بأسلوب swarm، ترندات البحث، وبث مباشر رائج — مدعومة ببيانات Trends MCP." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
@@ -21,65 +21,112 @@
       </span>
       <div class="brand-text">
         <h1>ترندات تيك توك</h1>
-        <span class="brand-sub">السعودية · لوحة الـ swarm المباشرة</span>
+        <span class="brand-sub">السعودية · لوحة الترندات المباشرة</span>
       </div>
     </div>
 
-    <div class="topbar-meta">
-      <span class="live-chip"><span class="live-dot"></span> مباشر</span>
-      <span class="meta-chip" id="asOfChip">—</span>
-      <span class="meta-chip" id="countChip">—</span>
-    </div>
+    <span class="live-chip"><span class="live-dot"></span> مباشر</span>
 
-    <div class="view-toggle" role="tablist" aria-label="طريقة العرض">
-      <button class="vt-btn is-active" data-view="swarm" role="tab" aria-selected="true">
-        <span class="vt-ico">✺</span> السرب
+    <nav class="tabs" role="tablist" aria-label="أقسام المنصة">
+      <button class="tab is-active" data-tab="hashtags" role="tab" aria-selected="true">
+        <span class="tab-ico">＃</span> الهاشتاقات
       </button>
-      <button class="vt-btn" data-view="list" role="tab" aria-selected="false">
-        <span class="vt-ico">☰</span> القائمة
+      <button class="tab" data-tab="searches" role="tab" aria-selected="false">
+        <span class="tab-ico">⌕</span> ترندات البحث
       </button>
-    </div>
+      <button class="tab" data-tab="live" role="tab" aria-selected="false">
+        <span class="tab-live-dot"></span> بث مباشر
+      </button>
+    </nav>
   </header>
 
-  <!-- ===== Controls ===== -->
-  <section class="controls">
-    <div class="search-wrap">
-      <span class="search-ico" aria-hidden="true">⌕</span>
-      <input id="search" type="search" placeholder="ابحث عن هاشتاق…" autocomplete="off" aria-label="بحث" />
+  <!-- =================================================================== -->
+  <!-- TAB: HASHTAGS                                                        -->
+  <!-- =================================================================== -->
+  <section class="panel is-active" id="panel-hashtags" role="tabpanel">
+    <div class="panel-head">
+      <div class="panel-title">
+        <h2>الهاشتاقات الرائجة</h2>
+        <p class="panel-meta" id="hMeta">—</p>
+      </div>
+      <div class="view-toggle" role="tablist" aria-label="طريقة العرض">
+        <button class="vt-btn is-active" data-view="swarm"><span class="vt-ico">✺</span> السرب</button>
+        <button class="vt-btn" data-view="list"><span class="vt-ico">☰</span> القائمة</button>
+      </div>
     </div>
 
-    <div class="control-actions">
-      <button class="pill pill-ksa" id="ksaToggle" aria-pressed="false">
-        <span class="ksa-star">★</span> أبرز ما يهم السعودية
-      </button>
-      <button class="pill pill-ghost" id="resetBtn">إعادة تعيين</button>
+    <div class="controls">
+      <div class="search-wrap">
+        <span class="search-ico" aria-hidden="true">⌕</span>
+        <input id="search" type="search" placeholder="ابحث عن هاشتاق…" autocomplete="off" aria-label="بحث" />
+      </div>
+      <div class="control-actions">
+        <button class="pill pill-ksa" id="ksaToggle" aria-pressed="false">
+          <span class="ksa-star">★</span> أبرز ما يهم السعودية
+        </button>
+        <button class="pill pill-ghost" id="resetBtn">إعادة تعيين</button>
+      </div>
+      <div class="legend" id="legend" aria-label="تصفية حسب الفئة"></div>
     </div>
 
-    <div class="legend" id="legend" aria-label="تصفية حسب الفئة"></div>
+    <div class="stats" id="stats"></div>
+
+    <div class="stage">
+      <section class="view view-swarm is-active" id="view-swarm">
+        <canvas id="swarm"></canvas>
+        <div class="swarm-hint" id="swarmHint">حرّك المؤشر بين الفقاعات · انقر للتفاصيل</div>
+        <div class="tooltip" id="tooltip" hidden></div>
+        <div class="empty-state" id="swarmEmpty" hidden>لا توجد نتائج مطابقة</div>
+      </section>
+      <section class="view view-list" id="view-list" hidden>
+        <div class="list-grid" id="listGrid"></div>
+        <div class="empty-state" id="listEmpty" hidden>لا توجد نتائج مطابقة</div>
+      </section>
+    </div>
   </section>
 
-  <!-- ===== Stats strip ===== -->
-  <section class="stats" id="stats"></section>
+  <!-- =================================================================== -->
+  <!-- TAB: SEARCHES                                                        -->
+  <!-- =================================================================== -->
+  <section class="panel" id="panel-searches" role="tabpanel" hidden>
+    <div class="panel-head">
+      <div class="panel-title">
+        <h2>ترندات البحث</h2>
+        <p class="panel-meta" id="sMeta">—</p>
+      </div>
+    </div>
+    <div class="source-banner" id="sBanner">—</div>
+    <div class="controls controls-slim">
+      <div class="search-wrap">
+        <span class="search-ico" aria-hidden="true">⌕</span>
+        <input id="searchS" type="search" placeholder="فلترة الترندات…" autocomplete="off" aria-label="فلترة" />
+      </div>
+    </div>
+    <div class="search-list" id="searchList"></div>
+    <div class="empty-state empty-inline" id="searchEmpty" hidden>لا توجد نتائج مطابقة</div>
+  </section>
 
-  <!-- ===== Main ===== -->
-  <main class="stage">
-    <!-- Swarm view -->
-    <section class="view view-swarm is-active" id="view-swarm" aria-label="عرض السرب">
-      <canvas id="swarm"></canvas>
-      <div class="swarm-hint" id="swarmHint">حرّك المؤشر بين الفقاعات · انقر للتفاصيل</div>
-      <div class="tooltip" id="tooltip" hidden></div>
-      <div class="empty-state" id="swarmEmpty" hidden>لا توجد نتائج مطابقة</div>
-    </section>
+  <!-- =================================================================== -->
+  <!-- TAB: LIVE                                                            -->
+  <!-- =================================================================== -->
+  <section class="panel" id="panel-live" role="tabpanel" hidden>
+    <div class="panel-head">
+      <div class="panel-title">
+        <h2><span class="live-badge"><span class="lb-dot"></span>LIVE</span> بث مباشر رائج</h2>
+        <p class="panel-meta" id="lMeta">—</p>
+      </div>
+    </div>
+    <div class="source-banner" id="lBanner">—</div>
 
-    <!-- List view -->
-    <section class="view view-list" id="view-list" aria-label="عرض القائمة" hidden>
-      <div class="list-grid" id="listGrid"></div>
-      <div class="empty-state" id="listEmpty" hidden>لا توجد نتائج مطابقة</div>
-    </section>
-  </main>
+    <h3 class="live-sub">هاشتاقات البث المباشر الأعلى رواجاً</h3>
+    <div class="live-highlights" id="liveHighlights"></div>
 
-  <!-- ===== Detail drawer ===== -->
-  <aside class="drawer" id="drawer" hidden aria-label="تفاصيل الهاشتاق">
+    <h3 class="live-sub">أكثر فئات البث رواجاً الآن</h3>
+    <div class="live-rooms" id="liveRooms"></div>
+  </section>
+
+  <!-- ===== Detail drawer (hashtags) ===== -->
+  <aside class="drawer" id="drawer" hidden aria-label="تفاصيل">
     <button class="drawer-close" id="drawerClose" aria-label="إغلاق">×</button>
     <div class="drawer-body" id="drawerBody"></div>
   </aside>
